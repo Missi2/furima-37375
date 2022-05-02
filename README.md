@@ -1,24 +1,68 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Usersテーブル
 
-Things you may want to cover:
+| Column             | Type     | Option                           |
+| ------------------ | -------- | -------------------------------- |
+| email              | string   | null: false, unique: true        |
+| encrypted_password | string   | null: false, /\A[a-zA-Z0-9]+\z/  |
+| nickname           | string   | null: false                      |
+| name               | string   | null: false, /\A[ぁ-んァ-ン一-龥]/ |
+| kana               | string   | null: false, /\A[ァ-ヶー－]+\z/   |
+| birthday           | datetime | null: false                      |
 
-* Ruby version
+### Association
+- has_many :items
+- has_many :comments
 
-* System dependencies
+## itemsテーブル
 
-* Configuration
+| Column      | Type       | Option                         |
+| ----------- | ---------- | ------------------------------ |
+| item_name   | string     | null: false                    |
+| explanatory | text       | null: false                    |
+| category    | string     | null: false                    |
+| condition   | string     | null: false                    |
+| delivery    | string     | null: false                    |
+| area        | string     | null: false                    |
+| days        | string     | null: false                    |
+| price       | integer    | null: false                    |
+| user_id     | references | null: false, foreign_key: true |
 
-* Database creation
+### Association
+- belongs_to :user
+- has_many :comments
+- has_one :buys
+- has_one_attached :image
 
-* Database initialization
+## Commentsテーブル
+| Column  | Type       | Option                         |
+| ------- | ---------- | ------------------------------ |
+| text    | text       | null: false                    |
+| item_id | references | null: false, foreign_key: true |
+| user_id | references | null: false, foreign_key: true |
 
-* How to run the test suite
+### Association
+- belongs_to :user
+- belongs_to :item
 
-* Services (job queues, cache servers, search engines, etc.)
+## buysテーブル
+| Column    | Type       | Option                         |
+| --------- | ---------- | ------------------------------ |
+| condition | string     | null: false                    |
+| item_id   | references | null: false, foreign_key: true |
 
-* Deployment instructions
+### Association
+- belongs_to :item
 
-* ...
+## imagesテーブル(ActiveStorage)
+| Column      | Type     | Option      |
+| ----------- | -------- | ----------- |
+| name        | string   | null: false |
+| record_type | string   | null: false |
+| record_id   | integer  | null: false |
+| blob_id     | integer  | null: false |
+| created_at  | datetime | null: false |
+
+### Association
+- belongs_to :item
