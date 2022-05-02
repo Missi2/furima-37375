@@ -32,7 +32,7 @@
 ### Association
 - belongs_to :user
 - has_many :comments
-- has_one :buys
+- has_one :buyer
 - has_one_attached :image
 
 ## Commentsテーブル
@@ -46,11 +46,17 @@
 - belongs_to :user
 - belongs_to :item
 
-## buysテーブル
-| Column    | Type       | Option                         |
-| --------- | ---------- | ------------------------------ |
-| condition | string     | null: false                    |
-| item_id   | references | null: false, foreign_key: true |
+## buyersテーブル
+| Column           | Type       | Option                         |
+| ---------------- | ---------- | ------------------------------ |
+| condition        | string     | null: false                    |
+| postal_code      | integer    | null: false, /\A[0-9]+\z/      |
+| prefectures      | string     | null: false                    |
+| municipalities   | string     | null: false                    |
+| address          | string     | null: false                    |
+| building_name    | string     | null: false                    |
+| telephone_number | integer    | null: false, /\A[0-9]+\z/      |
+| item_id          | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :item
