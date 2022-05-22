@@ -22,5 +22,7 @@ class User < ApplicationRecord
 
   VALID_PASSWORD_REGEX2 = /\A[a-z0-9]+\z/i
   validates :password, format: { with: VALID_PASSWORD_REGEX2, message: "は半角英数のみ定義できます"}
+
+  has_many :items
   
 end
