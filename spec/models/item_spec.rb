@@ -87,6 +87,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
       it "priceが¥300以下では登録できない" do
+        binding.pry
         @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include("Price は ¥300~9,999,999 の間で半角数字で指定してください")
