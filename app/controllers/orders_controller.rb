@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :set_item, only: [:index, :create]
+  before_action :item_can_buyed?, only: [:index, :create]
   before_action :authenticate_user!, only: [:index]
   before_action :user_select, only: [:index, :create]
 
@@ -38,6 +39,12 @@ class OrdersController < ApplicationController
 
   def user_select
     if @item.user_id == current_user.id
+      redirect_to root_path
+    end
+  end
+
+  def item_can_buyed?
+    if Order.find_by(item_id: @item.id)
       redirect_to root_path
     end
   end
