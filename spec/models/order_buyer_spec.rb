@@ -55,6 +55,16 @@ RSpec.describe OrderBuyer, type: :model do
         @order_buyer.valid?
         expect(@order_buyer.errors.full_messages).to include("Telephone number は半角数字のみ、ハイフンなしで入力して下さい")
       end
+      it 'telephone_numberが9文字以下だと登録できない' do
+        @order_buyer.telephone_number = '123456789'
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include("Telephone number 電話番号は10文字以上、11文字以下で入力してください")
+      end
+      it 'telephone_numberが12文字以上だと登録できない' do
+        @order_buyer.telephone_number = '123456789012'
+        @order_buyer.valid?
+        expect(@order_buyer.errors.full_messages).to include("Telephone number 電話番号は10文字以上、11文字以下で入力してください")
+      end
       it 'user_idが空だと保存ができないこと' do
         @order_buyer.user_id = ''
         @order_buyer.valid?
