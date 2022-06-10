@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
+  has_many :orders
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
@@ -16,6 +17,6 @@ class Item < ApplicationRecord
             numericality: { other_than: 0, message: "can't be blank" }
 
   validates :price,
-            numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999, only_integer: true,
+            numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999,
                             message: 'は ¥300~9,999,999 の間で半角数字で指定してください' }
 end

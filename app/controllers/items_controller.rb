@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:edit, :show, :update, :destroy]
+  before_action :item_buyed?, only: [:edit, :update, :destroy]
   before_action :user_select, only: [:edit, :destroy]
 
   def index
@@ -53,6 +54,12 @@ class ItemsController < ApplicationController
 
   def user_select
     if @item.user_id != current_user.id
+      redirect_to root_path
+    end
+  end
+
+  def item_buyed?
+    if Order.find_by(item_id: @item.id)
       redirect_to root_path
     end
   end
