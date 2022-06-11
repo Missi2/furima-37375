@@ -3,7 +3,7 @@ class OrderBuyer
   attr_accessor :postal_code, :prefecture_id, :municipalities, :address, :building_name, :telephone_number, :order_id, :item_id, :user_id, :token
 
   with_options presence: true do
-    validates :municipalities, :address, :telephone_number, :item_id, :user_id, :token
+    validates :municipalities, :address, :item_id, :user_id, :token
   end
   validates :postal_code, presence: true, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
   validates :prefecture_id, numericality: {other_than: 0, message: "can't be blank"}
